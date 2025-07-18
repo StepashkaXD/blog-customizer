@@ -11,24 +11,22 @@ import {
 	contentWidthArr,
 	fontSizeOptions,
 	defaultArticleState,
-	OptionType,
 } from 'src/constants/articleProps';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useSidebar } from 'src/hooks/useSidebar'
+import { FormProps, OptionType } from '../../types'
+
 
 import styles from './ArticleParamsForm.module.scss';
 import clsx from 'clsx';
 
-type FormProps = {
-	globalState: typeof defaultArticleState;
-	onUpdate: (newState: typeof defaultArticleState) => void;
-	onReset: () => void;
-};
-
-export const ArticleParamsForm = ({ globalState, onUpdate, onReset }: FormProps) => {
-	const [isOpen, setIsOpen] = useState(false);
+export const ArticleParamsForm = ({ globalState, onUpdate, onReset}: FormProps) => {
 	const [localState, setLocalState] = useState(globalState);
+	const {isOpen, setIsOpen, ref} = useSidebar();
 
-	const asideRef = useRef<HTMLElement | null>(null);
+	const handleChangeAsideState = () => {
+		setIsOpen(!isOpen);
+	}
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -38,33 +36,15 @@ export const ArticleParamsForm = ({ globalState, onUpdate, onReset }: FormProps)
 	const handleReset = () => {
 		setLocalState(defaultArticleState);
 		onReset();
-
 	};
 
-	const handleChangeAsideState = () => {
-		setIsOpen(!isOpen);
+	const handleFieldChange = (field: keyof typeof localState, option: OptionType) => {
+		setLocalState({
+			...localState,
+			[field]: option,
+		});
 	};
 
-	useEffect(() => {
-		const handleClick = (e: MouseEvent) => {
-			if (asideRef.current && !asideRef.current.contains(e.target as Node)) {
-				setIsOpen(false);
-			}
-		};
-		const handleKeyDown = (e: KeyboardEvent) => {
-			if (e.key === 'Escape') {
-				setIsOpen(false);
-			}
-		};
-		if (isOpen) {
-			document.addEventListener('mousedown', handleClick);
-			document.addEventListener('keydown', handleKeyDown);
-			return () => {
-				document.removeEventListener('mousedown', handleClick);
-				document.removeEventListener('keydown', handleKeyDown);
-			};
-		}
-	}, [isOpen]);
 
 	useEffect(() => {
 		setLocalState(globalState);
@@ -79,7 +59,7 @@ export const ArticleParamsForm = ({ globalState, onUpdate, onReset }: FormProps)
 				}}
 			/>
 			<aside
-				ref={asideRef}
+				ref={ref}
 				className={clsx(styles.container, isOpen ? styles.container_open : '')}>
 				<form
 					className={styles.form}
@@ -99,12 +79,7 @@ export const ArticleParamsForm = ({ globalState, onUpdate, onReset }: FormProps)
 						title='Шрифт'
 						options={fontFamilyOptions}
 						selected={localState.fontFamilyOption}
-						onChange={(option) => {
-							setLocalState({
-								...localState,
-								fontFamilyOption: option,
-							});
-						}}
+						onChange={handleFieldChange.bind(this, 'fontFamilyOption')}
 					/>
 
 					<RadioGroup
@@ -112,24 +87,14 @@ export const ArticleParamsForm = ({ globalState, onUpdate, onReset }: FormProps)
 						title='Размер шрифта'
 						options={fontSizeOptions}
 						selected={localState.fontSizeOption}
-						onChange={(option) => {
-							setLocalState({
-								...localState,
-								fontSizeOption: option,
-							});
-						}}
+						onChange={handleFieldChange.bind(this, 'fontSizeOption')}
 					/>
 
 					<Select
 						title='Цвет шрифта'
 						options={fontColors}
 						selected={localState.fontColor}
-						onChange={(option) => {
-							setLocalState({
-								...localState,
-								fontColor: option,
-							});
-						}}
+						onChange={handleFieldChange.bind(this, 'fontColor')}
 					/>
 
 					<Separator />
@@ -138,24 +103,14 @@ export const ArticleParamsForm = ({ globalState, onUpdate, onReset }: FormProps)
 						title='Цвет фона'
 						options={backgroundColors}
 						selected={localState.backgroundColor}
-						onChange={(option) => {
-							setLocalState({
-								...localState,
-								backgroundColor: option,
-							});
-						}}
+						onChange={handleFieldChange.bind(this, 'backgroundColor')}
 					/>
 
 					<Select
 						title='Ширина контента'
 						options={contentWidthArr}
 						selected={localState.contentWidth}
-						onChange={(option) => {
-							setLocalState({
-								...localState,
-								contentWidth: option,
-							});
-						}}
+						onChange={handleFieldChange.bind(this, 'contentWidth')}
 					/>
 
 					<div className={styles.bottomContainer}>
