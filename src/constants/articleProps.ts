@@ -1,3 +1,5 @@
+import { OptionType } from '../types';
+
 export const fontFamilyClasses = [
 	'open-sans',
 	'ubuntu',
@@ -7,13 +9,6 @@ export const fontFamilyClasses = [
 ] as const;
 
 export type FontFamiliesClasses = (typeof fontFamilyClasses)[number];
-
-export type OptionType = {
-	title: string;
-	value: string;
-	className: string;
-	optionClassName?: string;
-};
 
 export const fontFamilyOptions: OptionType[] & {
 	optionClassName?: FontFamiliesClasses;
