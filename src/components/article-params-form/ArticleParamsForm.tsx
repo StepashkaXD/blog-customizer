@@ -13,20 +13,23 @@ import {
 	defaultArticleState,
 } from 'src/constants/articleProps';
 import { useState, useEffect } from 'react';
-import { useSidebar } from 'src/hooks/useSidebar'
-import { FormProps, OptionType } from '../../types'
-
+import { useSidebar } from 'src/hooks/useSidebar';
+import { FormProps, OptionType } from '../../types';
 
 import styles from './ArticleParamsForm.module.scss';
 import clsx from 'clsx';
 
-export const ArticleParamsForm = ({ globalState, onUpdate, onReset}: FormProps) => {
+export const ArticleParamsForm = ({
+	globalState,
+	onUpdate,
+	onReset,
+}: FormProps) => {
 	const [localState, setLocalState] = useState(globalState);
-	const {isOpen, setIsOpen, ref} = useSidebar();
+	const { isOpen, setIsOpen, ref } = useSidebar();
 
 	const handleChangeAsideState = () => {
 		setIsOpen(!isOpen);
-	}
+	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -38,13 +41,15 @@ export const ArticleParamsForm = ({ globalState, onUpdate, onReset}: FormProps) 
 		onReset();
 	};
 
-	const handleFieldChange = (field: keyof typeof localState, option: OptionType) => {
+	const handleFieldChange = (
+		field: keyof typeof localState,
+		option: OptionType
+	) => {
 		setLocalState({
 			...localState,
 			[field]: option,
 		});
 	};
-
 
 	useEffect(() => {
 		setLocalState(globalState);
@@ -66,14 +71,14 @@ export const ArticleParamsForm = ({ globalState, onUpdate, onReset}: FormProps) 
 					onSubmit={handleSubmit}
 					onReset={handleReset}>
 					<Text
-						children='задайте параметры'
 						as='h2'
 						size={31}
 						weight={800}
 						fontStyle='normal'
 						uppercase={true}
-						align='left'
-					/>
+						align='left'>
+						Задайте параметры
+					</Text>
 
 					<Select
 						title='Шрифт'

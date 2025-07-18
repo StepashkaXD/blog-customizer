@@ -1,14 +1,14 @@
 import { ArticleStateType } from './constants/articleProps';
 
 export type FormProps = {
-  globalState: ArticleStateType;
-  onUpdate: (newState: ArticleStateType) => void;
-  onReset: () => void;
+	globalState: ArticleStateType;
+	onUpdate: (newState: ArticleStateType) => void;
+	onReset: () => void;
 };
 
 export type ArrowButtonProps = {
-  isOpen: boolean;
-  onClick: () => void;
+	isOpen: boolean;
+	onClick: () => void;
 };
 
 export type OptionType = {

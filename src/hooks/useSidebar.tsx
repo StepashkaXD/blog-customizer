@@ -10,16 +10,16 @@ export const useSidebar = () => {
 
 	const handleClick = (e: MouseEvent) => {
 		if (ref.current && !ref.current.contains(e.target as Node)) {
-			closeSidebar()
+			closeSidebar();
 		}
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.key === 'Escape') {
-			closeSidebar()
+			closeSidebar();
 		}
 	};
-	
+
 	useEffect(() => {
 		if (isOpen) {
 			document.addEventListener('mousedown', handleClick);
@@ -31,4 +31,4 @@ export const useSidebar = () => {
 		}
 	}, [isOpen]);
 	return { isOpen, setIsOpen, ref };
-}
+};
