@@ -19,11 +19,7 @@ import { FormProps, OptionType } from '../../types';
 import styles from './ArticleParamsForm.module.scss';
 import clsx from 'clsx';
 
-export const ArticleParamsForm = ({
-	globalState,
-	onUpdate,
-	onReset,
-}: FormProps) => {
+export const ArticleParamsForm = ({ globalState, onUpdate }: FormProps) => {
 	const [localState, setLocalState] = useState(globalState);
 	const { isOpen, setIsOpen, ref } = useSidebar();
 
@@ -38,7 +34,7 @@ export const ArticleParamsForm = ({
 
 	const handleReset = () => {
 		setLocalState(defaultArticleState);
-		onReset();
+		onUpdate(defaultArticleState);
 	};
 
 	const handleFieldChange = (

@@ -3,7 +3,6 @@ import { ArticleStateType } from './constants/articleProps';
 export type FormProps = {
 	globalState: ArticleStateType;
 	onUpdate: (newState: ArticleStateType) => void;
-	onReset: () => void;
 };
 
 export type ArrowButtonProps = {
