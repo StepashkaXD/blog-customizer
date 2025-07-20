@@ -4,6 +4,7 @@
 	"main": "index.js",
 	"license": "MIT",
 	"devDependencies": {
+		"@playwright/test": "^1.54.1",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
 		"@storybook/addon-essentials": "^8.0.5",
 		"@storybook/addon-interactions": "^8.0.5",
@@ -22,6 +23,7 @@
 		"autoprefixer": "^10.4.14",
 		"clean-webpack-plugin": "^4.0.0",
 		"commitizen": "^4.3.0",
+		"copy-webpack-plugin": "^13.0.0",
 		"cross-env": "^7.0.3",
 		"css-loader": "^6.8.1",
 		"cssnano": "^6.0.1",

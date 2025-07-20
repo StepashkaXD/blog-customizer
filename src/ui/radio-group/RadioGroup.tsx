@@ -1,4 +1,4 @@
-import { OptionType } from 'src/constants/articleProps';
+import { OptionType } from '../../types';
 import { Text } from 'src/ui/text';
 import { Option } from './Option';
 

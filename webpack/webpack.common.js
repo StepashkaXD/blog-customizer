@@ -1,4 +1,5 @@
 const HTMLWebpackPlugins = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path'); //для того чтобы превратить отнсительный путь в абсолютный мы будем использовать пакет path
@@ -94,6 +95,14 @@ module.exports = {
 		}),
 		new webpack.EnvironmentPlugin({
 			NODE_ENV: 'development', // значение по умолчанию 'development' если переменная process.env.NODE_ENV не передана
+		}),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: path.resolve(__dirname, '..', 'src/images/favicon.png'),
+					to: path.resolve(__dirname, '..', 'dist/favicon.png'),
+				},
+			],
 		}),
 	],
 };
